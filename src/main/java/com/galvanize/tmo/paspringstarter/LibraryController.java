@@ -1,6 +1,7 @@
 package com.galvanize.tmo.paspringstarter;
 
 import com.galvanize.tmo.paspringstarter.model.Book;
+import com.galvanize.tmo.paspringstarter.model.Library;
 import com.galvanize.tmo.paspringstarter.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,8 +37,10 @@ public class LibraryController {
 
     // Read operation
     @GetMapping("/api/books")
-    public List<Book> fetchBookList() {
-        return libraryService.fetchBookList();
+    public ResponseEntity fetchBookList() {
+        Library library = new Library();
+        library.setBooks(libraryService.fetchBookList());
+        return new ResponseEntity<>(library, HttpStatus.OK);
     }
 
     // Delete operation
